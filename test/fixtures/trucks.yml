@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  license: MyString
+  driver: MyString
+  capacity: 1
+  available: false
+
+two:
+  license: MyString
+  driver: MyString
+  capacity: 1
+  available: false
