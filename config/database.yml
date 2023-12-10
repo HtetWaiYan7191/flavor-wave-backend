@@ -1,0 +1,26 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: flavor_wave_backend_development
+  username: postgres
+  password: 719171
+
+  
+test:
+  <<: *default
+  database: flavor_wave_backend_test
+  username: postgres
+  password: 719171
+
+
+production:
+  <<: *default
+  database: flavor_wave_backend_production
+  username: food_order_backend
+  password: <%= ENV["FOOD_ORDER_BACKEND_DATABASE_PASSWORD"] %>
