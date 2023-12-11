@@ -3,7 +3,9 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :preorders
+      resources :preorders 
+        get 'preorders/filter/status', to: 'preorders#filter_by_order_status'
+        get 'preorders/filter/date', to: 'preorders#filter_by_order_date'
     end
   end
   
