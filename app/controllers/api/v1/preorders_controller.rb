@@ -15,7 +15,7 @@ class Api::V1::PreordersController < ApplicationController
     @preorder = Preorder.new(preorder_params)
 
     if @preorder.save
-      render json: @preorder, status: :created, location: @preorder
+      render json: @preorder, status: :created
     else
       render json: @preorder.errors, status: :unprocessable_entity
     end
