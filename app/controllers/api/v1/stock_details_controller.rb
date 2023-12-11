@@ -12,4 +12,10 @@ class Api::V1::StockDetailsController < ApplicationController
   def show
     render json: @stock_detail
   end
+
+  private
+
+  def set_api_v1_stock_detail
+    @stock_detail = StockDetail.find(params[:id])
+  end
 end
