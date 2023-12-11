@@ -1,44 +1,51 @@
-class Api::V1::DeliveriesController < ApplicationController
-  before_action :set_delivery, only: %i[ show update destroy ]
+# frozen_string_literal: true
 
-  def index
-    @deliveries = Delivery.all
+module Api
+  module V1
+    class DeliveriesController < ApplicationController
+      before_action :set_delivery, only: %i[show update destroy]
 
-    render json: @deliveries
-  end
+      def index
+        @deliveries = Delivery.all
 
-  def show
-    render json: @delivery
-  end
+        render json: @deliveries
+      end
 
-  def create
-    @delivery = Delivery.new(delivery_params)
+      def show
+        render json: @delivery
+      end
 
-    if @delivery.save
-      render json: @delivery, status: :created
-    else
-      render json: @delivery.errors, status: :unprocessable_entity
+      def create
+        @delivery = Delivery.new(delivery_params)
+
+        if @delivery.save
+          render json: @delivery, status: :created
+        else
+          render json: @delivery.errors, status: :unprocessable_entity
+        end
+      end
+
+      def update
+        if @delivery.update(delivery_params)
+          render json: @delivery
+        else
+          render json: @delivery.errors, status: :unprocessable_entity
+        end
+      end
+
+      def destroy
+        @delivery.destroy
+      end
+
+      private
+
+      def set_delivery
+        @delivery = Delivery.find(params[:id])
+      end
+
+      def delivery_params
+        params.require(:delivery).permit(:preorder_id, :truck_id, :distance, :delivery_date)
+      end
     end
   end
-
-  def update
-    if @delivery.update(delivery_params)
-      render json: @delivery
-    else
-      render json: @delivery.errors, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @delivery.destroy
-  end
-
-  private
-    def set_delivery
-      @delivery = Delivery.find(params[:id])
-    end
-
-    def delivery_params
-      params.require(:delivery).permit(:preorder_id, :truck_id, :distance, :delivery_date)
-    end
 end

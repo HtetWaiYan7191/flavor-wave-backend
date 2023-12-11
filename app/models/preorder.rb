@@ -17,7 +17,7 @@ class Preorder < ApplicationRecord
     set_permission_default
     set_order_status_default
   end
-  
+
   private
 
   def set_permission_default
