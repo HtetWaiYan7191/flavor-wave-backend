@@ -9,7 +9,8 @@ class Truck < ApplicationRecord
   validates :available, inclusion: { in: [true, false] }
 
   after_initialize :set_available_default
-  private 
+
+  private
 
   def set_available_default
     self.available ||= false

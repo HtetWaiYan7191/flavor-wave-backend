@@ -75,7 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 20_231_211_034_945) do
     t.string 'restock_date'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-  end
+  
 
   create_table 'stock_details', force: :cascade do |t|
     t.bigint 'restock_id', null: false
