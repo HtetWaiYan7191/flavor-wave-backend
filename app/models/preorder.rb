@@ -13,11 +13,18 @@ class Preorder < ApplicationRecord
 
   enum order_status: %i[pending delivering approve]
 
-  after_initialize :set_permission_default
-
+  after_initialize do
+    set_permission_default
+    set_order_status_default
+  end
+  
   private
 
   def set_permission_default
     self.permission ||= false
+  end
+
+  def set_order_status_default
+    self.order_status ||= 'pending'
   end
 end
