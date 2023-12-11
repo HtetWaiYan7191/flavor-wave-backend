@@ -11,4 +11,12 @@ class Preorder < ApplicationRecord
   validates :total, presence: true, numericality: { greater_than: 0 }
 
   enum order_status: %i[pending delivering approve]
+
+  after_create :set_permission_default
+
+  private
+
+  def set_permission_default
+    self.permission ||= false
+  end
 end

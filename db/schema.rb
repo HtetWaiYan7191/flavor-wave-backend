@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_231_210_141_117) do
+ActiveRecord::Schema[7.0].define(version: 20_231_211_034_945) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -52,6 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 20_231_210_141_117) do
     t.string 'order_date'
     t.string 'order_status'
     t.bigint 'total'
+    t.boolean 'permission'
     t.bigint 'user_id', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
@@ -60,16 +61,18 @@ ActiveRecord::Schema[7.0].define(version: 20_231_210_141_117) do
   end
 
   create_table 'restock_details', force: :cascade do |t|
-    t.string 'name'
     t.integer 'quantity'
     t.string 'expiry_date'
     t.bigint 'restock_id', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.bigint 'stock_id', null: false
     t.index ['restock_id'], name: 'index_restock_details_on_restock_id'
+    t.index ['stock_id'], name: 'index_restock_details_on_stock_id'
   end
 
   create_table 'restocks', force: :cascade do |t|
+    t.string 'restock_date'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
@@ -88,6 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 20_231_210_141_117) do
   create_table 'stocks', force: :cascade do |t|
     t.string 'name'
     t.integer 'quantity'
+    t.bigint 'unit_price'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
@@ -125,6 +129,7 @@ ActiveRecord::Schema[7.0].define(version: 20_231_210_141_117) do
   add_foreign_key 'preorders', 'clients'
   add_foreign_key 'preorders', 'users'
   add_foreign_key 'restock_details', 'restocks'
+  add_foreign_key 'restock_details', 'stocks'
   add_foreign_key 'stock_details', 'restocks'
   add_foreign_key 'stock_details', 'stocks'
 end

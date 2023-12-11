@@ -5,6 +5,7 @@ class CreateStocks < ActiveRecord::Migration[7.0]
     create_table :stocks do |t|
       t.string :name
       t.integer :quantity
+      t.bigint :unit_price
 
       t.timestamps
     end
