@@ -3,10 +3,11 @@
 class Preorder < ApplicationRecord
   belongs_to :client
   belongs_to :user
+  has_many :preorder_items
   has_many :stocks, through: :preorder_items
 
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validates :date, presence: true
+  validates :order_date, presence: true
   validates :order_status, presence: true
   validates :total, presence: true, numericality: { greater_than: 0 }
 
