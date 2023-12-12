@@ -16,6 +16,12 @@ Stock.destroy_all
 Truck.destroy_all
 Restock.destroy_all
 
+sale_manager = User.create(name: 'salesman', email: 'salesman@gmail.com', password: 'password', password_confirmation: 'password')
+
+logistic_manager = User.create(name: 'logistic', email: 'logistic@gmail.com', password: 'password', password_confirmation: 'password', department: 'logistic')
+
+user = User.create(name: 'user', email: 'user@gmail.com', password: 'password', password_confirmation: 'password')
+
 client = Client.create([
     {
         name: 'Culinary Delights Consortium', 
