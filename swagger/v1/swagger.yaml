@@ -1,0 +1,213 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/preorders":
+    get:
+      summary: List all preorders
+      tags:
+      - Preorders
+      description: List all preorders
+      security:
+      - Bearer: {}
+      responses:
+        '200':
+          description: List of Preorders
+    post:
+      summary: Create a new preorder
+      tags:
+      - Preorders
+      parameters: []
+      responses:
+        '201':
+          description: Expert created
+        '422':
+          description: Invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                client_id:
+                  type: integer
+                quantity:
+                  type: integer
+                order_date:
+                  type: string
+                order_status:
+                  type: string
+                total:
+                  type: integer
+                user_id:
+                  type: integer
+              required:
+              - name
+              - description
+              - model
+              - image 
+              - fee_per_day
+  "/preorders?search=clientName":
+    get:
+      summary: List all preorders searched by client Name 
+      tags:
+      - Preorders
+      description:  List all preorders searched by client Name 
+      security:
+      - Bearer: {}
+      responses:
+        '200':
+          description:  List all preorders searched by client Name 
+  "/preorders/filter/status?order_status=orderStatus":
+    get:
+      summary: List all preorders filter by order status 
+      tags:
+      - Preorders
+      description:  List all preorders searched by order status. Order status must be pass as 0, 1 or 2 
+      security:
+      - Bearer: {}
+      responses:
+        '200':
+          description:  List all preorders filter by order status 
+
+  "/preorders/id":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Show Preorder Details
+      tags:
+      - Preorders
+      description: Show Preorder Details
+      security:
+      - Bearer: {}
+      responses:
+        '200':
+          description: Expert details
+        '404':
+          description: Expert not found
+    patch:
+      summary: Update a preorder
+      tags:
+      - Preorders
+      parameters: []
+      responses:
+        '200':
+          description: Update successful
+        '422':
+          description: Update failed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                client_id:
+                  type: integer
+                quantity:
+                  type: integer
+                order_date:
+                  type: string
+                order_status:
+                  type: string
+                total:
+                  type: integer
+                user_id:
+                  type: integer
+              required:
+              - name
+              - description
+              - model
+              - image 
+              - fee_per_day
+    
+
+  "/clients":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: List client data
+      tags:
+      - Clients
+      description: List client data 
+      security:
+      - Bearer: {}
+      responses:
+        '200':
+          description: List client data 
+        '404':
+          description: Client not found
+  "/stocks":
+    get:
+      summary: List all stocks
+      tags:
+      - Stocks
+      description: List all stocks
+      security:
+      - Bearer: {}
+      responses:
+        '200':
+          description: List of stocks
+
+  "/stocks/id/stock_details": 
+    get:
+      summary: List all stock details according to stock_id 
+      tags:
+      - Stocks
+      description: List all stock details according to stock_id 
+      security:
+      - Bearer: {}
+      responses:
+        '200':
+          description: List all stock details according to stock_id 
+
+  "/deliveries":
+    get:
+      summary: List all deliveries 
+      tags:
+      - Deliveries
+      description: List all deliveries 
+      security:
+      - Bearer: {}
+      responses:
+        '200':
+          description: List of deliveries
+
+  "/login":
+    post:
+      summary: Login
+      tags:
+      - Users
+      description: Login the current user.
+      security:
+      - Bearer: {}
+      responses:
+        '200':
+          description: Log in successfully
+
+  "/logout":
+    delete:
+      summary: Logout
+      tags:
+      - Users
+      description: Log out the current user.
+      security:
+      - Bearer: {}
+      responses:
+        '200':
+          description: Logged out successfully
+    
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: flavor-wave.onrender.com/api/v1/
