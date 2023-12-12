@@ -3,12 +3,6 @@
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
-  config.before_configuration do
-    env_file = Rails.root.join('config', 'credentials.yml')
-    YAML.load(File.open(env_file)).each do |key, value|
-      ENV[key] = value
-    end
-  end
   
   config.master_key = ENV['RAILS_MASTER_KEY']
 
