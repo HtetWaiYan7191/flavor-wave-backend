@@ -527,5 +527,26 @@ stock_details = StockDetail.create(
             expiry_date: '2/7/2023',
             stock_id: Stock.first.id
         },
+
+        {
+            restock_id: Restock.first.id,
+            quantity: 10,
+            expiry_date: '2/10/2023',
+            stock_id: 7
+        },
+
+        {
+            restock_id: Restock.first.id,
+            quantity: 10,
+            expiry_date: '2/7/2023',
+            stock_id: 8
+        },
+
+        {
+            restock_id: Restock.first.id,
+            quantity: 20,
+            expiry_date: '2/9/2023',
+            stock_id: 8
+        },
     ]
 )

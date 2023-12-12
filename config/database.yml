@@ -8,15 +8,15 @@ default: &default
 development:
   <<: *default
   database: flavor_wave_backend_development
-  username: kan-to
-  password: monawutyi
+  username: postgres
+  password: grace1960
 
   
 test:
   <<: *default
   database: flavor_wave_backend_test
-  username: kan-to
-  password: monawutyi
+  username: postgres
+  password: grace1960
 
 
 production:
