@@ -11,13 +11,13 @@ class Preorder < ApplicationRecord
   validates :order_status, presence: true
   validates :total, presence: true, numericality: { greater_than: 0 }
 
-  enum order_status: %i[pending delivering approve]
+  # enum order_status: %i[pending delivering approve]
 
   after_initialize do
     set_permission_default
     set_order_status_default
-  end
-
+  end 
+  
   private
 
   def set_permission_default
@@ -25,6 +25,7 @@ class Preorder < ApplicationRecord
   end
 
   def set_order_status_default
-    self.order_status ||= 'pending'
+    self.order_status ||= '0'
   end
 end
+

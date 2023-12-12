@@ -6,7 +6,13 @@ Rails.application.routes.draw do
       resources :trucks, only: [:index]
       resources :deliveries, only: %i[index show create]
       resources :clients, only: [:index]
-      resources :preorders
+
+      resources :preorders do
+        collection do
+          get 'filter/status', to: 'preorders#filter_by_order_status'
+          get 'filter/date', to: 'preorders#filter_by_order_date'
+        end
+      end
     end
   end
 
