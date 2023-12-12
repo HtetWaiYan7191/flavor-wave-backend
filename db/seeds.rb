@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
@@ -533,22 +532,21 @@ stock_details = StockDetail.create(
             restock_id: Restock.first.id,
             quantity: 10,
             expiry_date: '2/10/2023',
-            stock_id: 7
+            stock_id: Stock.last.id
         },
 
         {
             restock_id: Restock.first.id,
             quantity: 10,
             expiry_date: '2/7/2023',
-            stock_id: 8
+            stock_id: Stock.last.id
         },
 
         {
             restock_id: Restock.first.id,
             quantity: 20,
             expiry_date: '2/9/2023',
-            stock_id: 8
+            stock_id: Stock.last.id
         },
     ]
 )
-

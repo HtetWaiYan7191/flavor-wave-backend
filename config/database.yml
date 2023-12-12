@@ -24,3 +24,4 @@ production:
   database: flavor_wave_backend_production
   username: food_order_backend
   password: <%= ENV["FOOD_ORDER_BACKEND_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
