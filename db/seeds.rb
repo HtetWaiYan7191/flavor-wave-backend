@@ -17,13 +17,6 @@ Stock.destroy_all
 Truck.destroy_all
 Restock.destroy_all
 
-<<<<<<< HEAD
-client = Client.create(name: 'kfc', region: 'yangon', phone: '01231414', address: 'No(40) street yangon')
-Stock.create(name: 'chicken', quantity: 3, unit_price: 2000)
-
-Preorder.create(client_id: client.id, quantity: 20, order_date: '12/2/2020', order_status: 'pending',
-                total: 20_000, user_id: User.first.id)
-=======
 client = Client.create([
     {
         name: 'Culinary Delights Consortium', 
@@ -558,4 +551,4 @@ stock_details = StockDetail.create(
         },
     ]
 )
->>>>>>> Api-Stock-and-StockDetails-khant-thu
+
