@@ -7,7 +7,6 @@ module Api
 
       def index
         @deliveries = Delivery.all
-
         render json: @deliveries
       end
 

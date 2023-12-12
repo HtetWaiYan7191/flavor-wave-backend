@@ -14,7 +14,8 @@ module Api
                      else
                        Preorder.all
                      end
-        render json: @preorders
+                     render json: @preorders.as_json(include: { client: { only: :name } })
+
       end
 
       def filter_by_order_status

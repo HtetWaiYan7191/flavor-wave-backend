@@ -6,8 +6,9 @@ module Api
       # GET /api/v1/stocks
       def index
         @stocks = Stock.all
+        
+        render json: @stocks.as_json(include: { stock_details: { only: :expiry_date } })
 
-        render json: @stocks
       end
     end
   end
