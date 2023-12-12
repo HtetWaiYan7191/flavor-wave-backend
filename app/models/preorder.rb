@@ -16,8 +16,8 @@ class Preorder < ApplicationRecord
   after_initialize do
     set_permission_default
     set_order_status_default
-  end 
-  
+  end
+
   private
 
   def set_permission_default
@@ -28,4 +28,3 @@ class Preorder < ApplicationRecord
     self.order_status ||= '0'
   end
 end
-

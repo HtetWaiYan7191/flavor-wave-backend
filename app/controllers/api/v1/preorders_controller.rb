@@ -6,26 +6,26 @@ module Api
     class PreordersController < ApplicationController
       before_action :set_preorder, only: %i[show update destroy]
 
-  def index
-    if params[:search].present?
-      # @client = Client.find_by(name: params[:search])
-      # @preorders = @client.preorders if @client
-      @preorders = Preorder.joins(:client).where("clients.name LIKE ?", "%#{params[:search]}%")
-    else
-      @preorders = Preorder.all
-    end
-    render json: @preorders
-  end
+      def index
+        @preorders = if params[:search].present?
+                       # @client = Client.find_by(name: params[:search])
+                       # @preorders = @client.preorders if @client
+                       Preorder.joins(:client).where('clients.name LIKE ?', "%#{params[:search]}%")
+                     else
+                       Preorder.all
+                     end
+        render json: @preorders
+      end
 
-  def filter_by_order_status
-    @preorders = Preorder.where(order_status: params[:order_status])
-    render json: @preorders
-  end
+      def filter_by_order_status
+        @preorders = Preorder.where(order_status: params[:order_status])
+        render json: @preorders
+      end
 
-  def filter_by_order_date
-    @preorders = Preorder.where(order_date: params[:order_date])
-    render json: @preorders
-  end
+      def filter_by_order_date
+        @preorders = Preorder.where(order_date: params[:order_date])
+        render json: @preorders
+      end
 
       def show
         render json: @preorder

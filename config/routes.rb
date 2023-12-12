@@ -3,9 +3,11 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :trucks, only: [:index]
-      resources :deliveries, only: %i[index show create]
+
       resources :clients, only: [:index]
+      resources :stocks, only:[:index] do
+        resources :stock_details
+      end
 
       resources :preorders do
         collection do
@@ -13,6 +15,9 @@ Rails.application.routes.draw do
           get 'filter/date', to: 'preorders#filter_by_order_date'
         end
       end
+      resources :trucks, only: [:index]
+      resources :deliveries, only: %i[index show create]
+
     end
   end
 

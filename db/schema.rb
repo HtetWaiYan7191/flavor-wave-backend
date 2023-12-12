@@ -75,7 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 20_231_211_034_945) do
     t.string 'restock_date'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-  
+  end
 
   create_table 'stock_details', force: :cascade do |t|
     t.bigint 'restock_id', null: false
@@ -94,6 +94,13 @@ ActiveRecord::Schema[7.0].define(version: 20_231_211_034_945) do
     t.bigint 'unit_price'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+  end
+
+  create_table 'test_animals', id: :serial, force: :cascade do |t|
+    t.string 'name', limit: 255, null: false
+    t.date 'birth_date'
+    t.decimal 'weight_kg'
+    t.string 'species', limit: 50
   end
 
   create_table 'trucks', force: :cascade do |t|
