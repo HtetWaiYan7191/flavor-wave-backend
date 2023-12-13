@@ -14,11 +14,18 @@ class Preorder < ApplicationRecord
   # enum order_status: %i[pending delivering approve]
 
   after_initialize do
+    set_urgent_default
     set_permission_default
     set_order_status_default
   end
 
+  after_create :reduce_stock
+
   private
+
+  def set_urgent_default
+    self.urgent ||= false
+  end
 
   def set_permission_default
     self.permission ||= false
