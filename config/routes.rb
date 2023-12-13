@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => '/api-docs'
   namespace :api do
     namespace :v1 do
-      resources :preorder_items, only: [:index, :create]
 
       resources :clients, only: [:index]
       resources :stocks, only:[:index] do
@@ -13,11 +12,15 @@ Rails.application.routes.draw do
       end
 
       resources :preorders do
+        
+        resources :preorder_items, only: [:index, :create]
         collection do
           get 'filter/status', to: 'preorders#filter_by_order_status'
           get 'filter/date', to: 'preorders#filter_by_order_date'
         end
       end
+      
+      get '/preorder_items/all', to: 'preorder_items#all'
       resources :trucks, only: [:index]
       resources :deliveries, only: %i[index show create]
 

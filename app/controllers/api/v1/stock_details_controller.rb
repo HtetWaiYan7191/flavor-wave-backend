@@ -6,7 +6,7 @@ module Api
       before_action :set_api_v1_stock_detail, only: %i[show update destroy]
 
       def index
-        @stock_details = StockDetail.where(stock_id: params[:stock_id])
+        @stock_details = StockDetail.where(stock_id: params[:stock_id]).order(expiry_date: :desc)
         render json: @stock_details
       end
 

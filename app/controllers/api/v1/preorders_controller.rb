@@ -44,7 +44,7 @@ module Api
 
       def update
         if @preorder.update(preorder_params)
-          render json: @preorder
+          render json: @preorder.as_json(include: { client: { only: :name } })
         else
           render json: @preorder.errors, status: :unprocessable_entity
         end
