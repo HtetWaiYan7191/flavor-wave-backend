@@ -7,6 +7,8 @@ class PreorderItem < ApplicationRecord
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validate :unique_preorder_item_except_same_stock_different_id
 
+  # after_create :reduce_stock
+
   private
 
   def unique_preorder_item_except_same_stock_different_id
@@ -16,5 +18,11 @@ class PreorderItem < ApplicationRecord
       errors.add(:base, "Preorder already has this stock item with different ID")
     end
   end
+
+  # def reduce_stock
+  #     stock = Stock.find(self.stock_id)
+  #     stock.quantity -= item.quantity
+  #     stock.save
+  # end
 
 end
