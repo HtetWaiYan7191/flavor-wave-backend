@@ -356,21 +356,21 @@ preorder_1 = Preorder.create([
     },
 
     {
-        client_id: Client.first.id, 
+        client_id: Client.last.id, 
         quantity: 20, 
         order_date: '10/1/2023', 
         order_status: 'pending', 
         total: 20000, 
-        user_id: User.first.id
+        user_id: User.last.id
     },
 
     {
-        client_id: Client.first.id, 
+        client_id: Client.last.id, 
         quantity: 70, 
         order_date: '10/1/2023', 
         order_status: 'pending', 
         total: 20000, 
-        user_id: User.first.id
+        user_id: User.last.id
     },
 
     {
