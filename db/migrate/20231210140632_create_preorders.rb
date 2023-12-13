@@ -10,6 +10,7 @@ class CreatePreorders < ActiveRecord::Migration[7.0]
       t.string :order_date
       t.string :order_status
       t.bigint :total
+      t.boolean :urgent
       t.boolean :permission
       t.references :user, null: false, foreign_key: true
 

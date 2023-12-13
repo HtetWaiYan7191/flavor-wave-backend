@@ -52,6 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_034945) do
     t.string "order_date"
     t.string "order_status"
     t.bigint "total"
+    t.boolean "urgent"
     t.boolean "permission"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
