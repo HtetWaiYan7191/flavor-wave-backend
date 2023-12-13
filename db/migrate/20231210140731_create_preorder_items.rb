@@ -5,7 +5,7 @@ class CreatePreorderItems < ActiveRecord::Migration[7.0]
     create_table :preorder_items do |t|
       t.references :preorder, null: false, foreign_key: true
       t.references :stock, null: false, foreign_key: true
-      t.bigint :price
+      t.integer :quantity, null: false
 
       t.timestamps
     end

@@ -5,6 +5,8 @@ class CreatePreorders < ActiveRecord::Migration[7.0]
     create_table :preorders do |t|
       t.references :client, null: false, foreign_key: true
       t.integer :quantity
+      t.string :region
+      t.string :township
       t.string :order_date
       t.string :order_status
       t.bigint :total

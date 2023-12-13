@@ -5,6 +5,8 @@ class CreateTrucks < ActiveRecord::Migration[7.0]
     create_table :trucks do |t|
       t.string :license
       t.string :driver
+      t.string :region
+      t.string :township
       t.integer :capacity
       t.boolean :available
 
