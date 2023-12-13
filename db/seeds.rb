@@ -352,6 +352,8 @@ preorder_1 = Preorder.create([
         order_date: '10/1/2023', 
         order_status: 'pending', 
         total: 20000, 
+        urgent: true,
+        permission: true,
         user_id: User.first.id
     },
 
@@ -361,6 +363,8 @@ preorder_1 = Preorder.create([
         order_date: '10/1/2023', 
         order_status: 'pending', 
         total: 20000, 
+        urgent: false,
+        permission: false,
         user_id: User.last.id
     },
 
@@ -370,6 +374,8 @@ preorder_1 = Preorder.create([
         order_date: '10/1/2023', 
         order_status: 'pending', 
         total: 20000, 
+        urgent: true,
+        permission: true,
         user_id: User.last.id
     },
 
@@ -378,7 +384,9 @@ preorder_1 = Preorder.create([
         quantity: 200, 
         order_date: '10/4/2023',
         order_status: 'pending', 
-        total: 20000, 
+        total: 20000,
+        urgent: true, 
+        permission: true,
         user_id: User.first.id
     },
 
@@ -387,7 +395,9 @@ preorder_1 = Preorder.create([
         quantity: 230, 
         order_date: '10/3/2024', 
         order_status: 'pending', 
-        total: 20000, 
+        total: 20000,
+        urgent: false, 
+        permission: false,
         user_id: User.first.id
     },
 ])
