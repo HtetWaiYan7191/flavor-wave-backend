@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => '/api-docs'
   namespace :api do
     namespace :v1 do
+      resources :preorder_items, only: [:index, :create]
 
       resources :clients, only: [:index]
       resources :stocks, only:[:index] do

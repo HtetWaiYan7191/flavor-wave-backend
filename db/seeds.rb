@@ -434,32 +434,38 @@ delivery = Delivery.create([
 preorder_items = PreorderItem.create([
     {
         preorder_id: Preorder.first.id,
-        stock_id: Stock.first.id,
-        price: 5000
+        stock_id: 81,
+        quantity: 23
     },
 
     {
         preorder_id: Preorder.first.id,
-        stock_id: Stock.first.id,
-        price: 5000
+        stock_id: 82,
+        quantity: 27
     },
 
     {
         preorder_id: Preorder.first.id,
-        stock_id: 2,
-        price: 5000
+        stock_id: 83,
+        quantity: 12
     },
 
     {
         preorder_id: Preorder.first.id,
-        stock_id: 3,
-        price: 5000
+        stock_id: 87,
+        quantity: 56
     },
 
     {
-        preorder_id: Preorder.first.id,
-        stock_id: 7,
-        price: 5000
+        preorder_id: Preorder.last.id,
+        stock_id: 83,
+        quantity: 12
+    },
+
+    {
+        preorder_id: Preorder.last.id,
+        stock_id: 87,
+        quantity: 56
     },
 ])
 

@@ -51,7 +51,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def truck_params
-        params.require(:truck).permit(:license, :driver, :capacity, :available, :current_capacity)
+        params.require(:truck).permit(:license, :driver, :region, :township, :capacity, :available, :current_capacity)
       end
     end
   end

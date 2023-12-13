@@ -61,7 +61,7 @@ module Api
       end
 
       def preorder_params
-        params.require(:preorder).permit(:client_id, :quantity, :order_date, :order_status, :total, :permission,
+        params.require(:preorder).permit(:client_id, :quantity, :region, :township, :order_date, :order_status, :total, :permission,
                                          :user_id)
       end
     end
