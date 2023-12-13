@@ -2,7 +2,7 @@
 
 ## API DOCUMENTATION
 
-### <i>Base URL: https://flavor-wave.onrender.com/ </i>
+### <i>Base URL: https://flavor-wave-api.onrender.com/ </i>
 
 <hr/>
 - User Login( <i><b>/login</b></i> )
