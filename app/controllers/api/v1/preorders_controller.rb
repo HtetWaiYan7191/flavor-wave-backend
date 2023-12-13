@@ -10,7 +10,7 @@ module Api
         @preorders = if params[:search].present?
                        # @client = Client.find_by(name: params[:search])
                        # @preorders = @client.preorders if @client
-                       Preorder.joins(:client).where('clients.name LIKE ?', "%#{params[:search]}%")
+                       Preorder.joins(:client).where('clients.name ILIKE ?', "%#{params[:search]}%")
                      else
                        Preorder.all
                      end

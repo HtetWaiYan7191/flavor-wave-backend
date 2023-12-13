@@ -10,7 +10,7 @@ module Api
         render json: @deliveries.as_json(include: { truck: { only: [:license, :driver] } })
       end
 
-      def show
+    def show
         render json: @delivery
       end
 
