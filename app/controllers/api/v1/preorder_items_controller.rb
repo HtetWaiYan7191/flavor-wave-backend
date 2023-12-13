@@ -2,6 +2,12 @@ class Api::V1::PreorderItemsController < ApplicationController
   before_action :set_preorder_item, only: %i[ show update destroy ]
 
   def index
+    @preorder_items = PreorderItem.includes(:preorder).where(preorder_id: params[:preorder_id])
+
+    render json: @preorder_items
+  end
+
+  def all
     @preorder_items = PreorderItem.all
 
     render json: @preorder_items
@@ -12,8 +18,8 @@ class Api::V1::PreorderItemsController < ApplicationController
   end
 
   def create
-    @preorder_item = PreorderItem.new(preorder_item_params)
-
+    @preorder_item = PreorderItem.create({ preorder_id: params[:preorder_id] }.merge(preorder_item_params))
+  
     if @preorder_item.save
       render json: @preorder_item, status: :created
     else
@@ -40,6 +46,6 @@ class Api::V1::PreorderItemsController < ApplicationController
     end
 
     def preorder_item_params
-      params.require(:preorder_item).permit(:preorder_id, :stock_id, :quantity)
+      params.require(:preorder_item).permit(:stock_id, :quantity)
     end
 end
