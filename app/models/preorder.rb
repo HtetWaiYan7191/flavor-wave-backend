@@ -19,8 +19,6 @@ class Preorder < ApplicationRecord
     set_order_status_default
   end
 
-  after_create :reduce_stock
-
   private
 
   def set_urgent_default
