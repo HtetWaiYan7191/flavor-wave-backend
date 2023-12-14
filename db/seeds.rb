@@ -86,11 +86,11 @@ stock19 = Stock.create ([ name: 'Passionfruit Pomegranate Bliss', quantity: 30, 
 stock20 = Stock.create ([ name: 'Exotic Cucumber Limeade',        quantity: 50,    unit_price: 3000])
 
 #truck seeding
-tucks1 = Truck.create([license: '2C/9800',driver: 'Ko Aung Kyaw',capacity: 200,available: true])
-tucks2 = Truck.create([license: '4E/2400',driver: 'U Hla Maung',capacity: 1000,available: false])
-tucks3 = Truck.create([license: '5T/3100',driver: 'Ko Myo Thant',capacity: 600,available: true])
-tucks4 = Truck.create([license: '1Y/1100',driver: 'U Myint Aung',capacity: 800,available: true])
-tucks5 = Truck.create([license: '3W/200',driver: 'Ko Kyaw Zaw',capacity: 400,available: false])
+truck1 = Truck.create([license: '2C/9800',driver: 'Ko Aung Kyaw',capacity: 200,available: true])
+truck2 = Truck.create([license: '4E/2400',driver: 'U Hla Maung',capacity: 1000,available: false])
+truck3 = Truck.create([license: '5T/3100',driver: 'Ko Myo Thant',capacity: 600,available: true])
+truck4 = Truck.create([license: '1Y/1100',driver: 'U Myint Aung',capacity: 800,available: true])
+truck5 = Truck.create([license: '3W/200',driver: 'Ko Kyaw Zaw',capacity: 400,available: false])
 
 #restock seeding
 restock1 = Restock.create([restock_date: "01/12/2005"])
