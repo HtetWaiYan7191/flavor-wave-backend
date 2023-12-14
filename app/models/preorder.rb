@@ -14,15 +14,18 @@ class Preorder < ApplicationRecord
   # enum order_status: %i[pending delivering approve]
 
   after_initialize do
-    set_urgent_default
     set_permission_default
     set_order_status_default
   end
 
+  
+  after_initialize :set_urgent_default
+
   private
 
   def set_urgent_default
-    self.urgent ||= false
+    update(permission: false) if client&.region == 'Yangon'
+    update(permission: true) if client&.region != 'Yangon'
   end
 
   def set_permission_default
