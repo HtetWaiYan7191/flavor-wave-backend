@@ -14,7 +14,7 @@ module Api
                      else
                        Preorder.all
                      end
-                     render json: @preorders.as_json(include: { client: { only: :name } })
+                     render json: @preorders.as_json(include: { client: { only: [:name, :region, :address] } })
 
       end
 
