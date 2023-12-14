@@ -7,16 +7,27 @@ module Api
       before_action :set_preorder, only: %i[show update destroy]
 
       def index
-        @preorders = if params[:search].present?
-                       # @client = Client.find_by(name: params[:search])
-                       # @preorders = @client.preorders if @client
-                       Preorder.joins(:client).where('clients.name ILIKE ?', "%#{params[:search]}%")
-                     else
-                       Preorder.all
-                     end
-                     render json: @preorders.as_json(include: { client: { only: [:name, :region, :address] } })
-
+        if params[:search].present?
+          search_value = params[:search]
+      
+          if search_value.match?(/^\d+$/)
+            int = search_value.to_i
+            @preorders = Preorder.find_by(id: int)
+          else
+            # If it's not a valid integer, search by client name
+            @preorders = Preorder.joins(:client).where('clients.name ILIKE ?', "%#{search_value}%")
+          end
+        else
+          @preorders = Preorder.all
+        end
+      
+        if @preorders.present?
+          render json: @preorders.as_json(include: { client: { only: [:name, :region, :address] } })
+        else
+          render json: { message: 'No matching preorders found' }, status: :not_found
+        end
       end
+      
 
       def filter_by_order_status
         @preorders = Preorder.where(order_status: params[:order_status])
