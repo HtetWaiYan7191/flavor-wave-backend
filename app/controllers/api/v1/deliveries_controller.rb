@@ -7,7 +7,21 @@ module Api
 
       def index
         @deliveries = Delivery.all
-        render json: @deliveries
+        render json: @deliveries.as_json(
+          include: {
+            truck: {
+              only: [:license, :driver, :capacity]
+            },
+            preorder: {
+              only: [:preorder_id], 
+              include: {
+                client: {
+                  only: [:name, :phone, :address] 
+                }
+              }
+            }
+          }
+        )
       end
 
     def show
