@@ -14,7 +14,6 @@ module Api
             int = search_value.to_i
             @preorders = Preorder.find_by(id: int)
           else
-            # If it's not a valid integer, search by client name
             @preorders = Preorder.joins(:client).where('clients.name ILIKE ?', "%#{search_value}%")
           end
         else
@@ -44,12 +43,19 @@ module Api
       end
 
       def create
-        @preorder = Preorder.new(preorder_params)
-
-        if @preorder.save
-          render json: @preorder, status: :created
-        else
-          render json: @preorder.errors, status: :unprocessable_entity
+        ActiveRecord::Base.transaction do
+          # Fetch the client_id from the preorder hash
+          client_id = params.dig(:preorder, :client_id)
+          client = Client.find(client_id) if client_id
+      
+          @preorder = Preorder.new(preorder_params.merge(region: client&.region))
+      
+          if @preorder.save
+            create_preorder_items
+            render json: @preorder, status: :created
+          else
+            render json: @preorder.errors, status: :unprocessable_entity
+          end
         end
       end
 
@@ -74,6 +80,18 @@ module Api
       def preorder_params
         params.require(:preorder).permit(:client_id, :quantity, :region, :township, :order_date, :order_status, :total,:urgent, :permission,
                                          :user_id)
+      end
+
+      def create_preorder_items
+        return unless params[:preorder_items].is_a?(Array)
+      
+        params[:preorder_items].each do |item_data|
+          @preorder.preorder_items.create(preorder_item_params(item_data))
+        end
+      end
+      
+      def preorder_item_params(item_data)
+        item_data.permit(:stock_id, :quantity)
       end
     end
   end
