@@ -43,9 +43,9 @@ user = User.create([
 ])
 
 # Client seeding
-client1  = Client.create([ name: 'Culinary Delights Consortium', region: 'Mandalay',   phone: '09876567898', address: '45st street, Mandalay',])
-client2  = Client.create([ name: 'TastyHarvest Ventures',        region: 'Yangon',     phone: '09876734212', address: 'Bogyoke Road, Yangon',])
-client3  = Client.create([ name: 'DivinePalate Trading Co',      region: 'Yangon',     phone: '09878909876',  address: 'Inya Lake Avenue, Yangon',])
+client1  = Client.create([ name: 'Culinary Delights Consortium', region: 'Mandalay',   phone: '09876567898', address: '45st street, Mandalay'])
+client2  = Client.create([ name: 'TastyHarvest Ventures',        region: 'Yangon',     phone: '09876734212', address: 'Bogyoke Road, Yangon'])
+client3  = Client.create([ name: 'DivinePalate Trading Co',      region: 'Yangon',     phone: '09878909876',  address: 'Inya Lake Avenue, Yangon'])
 client4  = Client.create([ name: 'Epicurean Express Ltd,'        region: 'Ayeyarwady', phone: '09867907532',  address: 'Strand Road, Ayeyarwady'])
 client5  = Client.create([ name: 'Savory Delights Inc',          region: 'Yangon',     phone: '09456765423', address: 'Merchant Street, Yangon'])
 client6  = Client.create([ name: 'FlavorCraft Distributors',     region: 'Yangon',     phone: '09158642907',  address: 'Bogyoke Road, Yangon'])
@@ -86,11 +86,11 @@ stock19 = Stock.create ([ name: 'Passionfruit Pomegranate Bliss', quantity: 30, 
 stock20 = Stock.create ([ name: 'Exotic Cucumber Limeade',        quantity: 50,    unit_price: 3000])
 
 #truck seeding
-tucks1 = Truck.create([license: '2C/9800',driver: 'Ko Aung Kyaw',capacity: 200,available: true,])
-tucks2 = Truck.create([license: '4E/2400',driver: 'U Hla Maung',capacity: 1000,available: false,])
-tucks3 = Truck.create([license: '5T/3100',driver: 'Ko Myo Thant',capacity: 600,available: true,])
-tucks4 = Truck.create([license: '1Y/1100',driver: 'U Myint Aung',capacity: 800,available: true,])
-tucks5 = Truck.create([license: '3W/200',driver: 'Ko Kyaw Zaw',capacity: 400,available: false,])
+tucks1 = Truck.create([license: '2C/9800',driver: 'Ko Aung Kyaw',capacity: 200,available: true])
+tucks2 = Truck.create([license: '4E/2400',driver: 'U Hla Maung',capacity: 1000,available: false])
+tucks3 = Truck.create([license: '5T/3100',driver: 'Ko Myo Thant',capacity: 600,available: true])
+tucks4 = Truck.create([license: '1Y/1100',driver: 'U Myint Aung',capacity: 800,available: true])
+tucks5 = Truck.create([license: '3W/200',driver: 'Ko Kyaw Zaw',capacity: 400,available: false])
 
 #restock seeding
 restock1 = Restock.create([restock_date: 01/12/2005])
