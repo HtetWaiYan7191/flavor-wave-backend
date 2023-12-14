@@ -33,6 +33,6 @@ class Preorder < ApplicationRecord
   end
 
   def set_order_status_default
-    self.order_status ||= '0'
+    self.order_status ||= 'Pending'
   end
 end
