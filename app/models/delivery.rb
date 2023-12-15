@@ -18,6 +18,7 @@ class Delivery < ApplicationRecord
     if truck.current_capacity <= preorder.quantity
       errors.add(:truck, "capacity exceeded")
     end 
+  end
 
   def set_default_date
     update(delivery_date: (Time.zone.now + 3.days).strftime('%d/%m/%Y'))
