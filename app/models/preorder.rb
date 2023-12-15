@@ -5,27 +5,25 @@ class Preorder < ApplicationRecord
   belongs_to :user
   has_many :preorder_items
   has_many :stocks, through: :preorder_items
+  has_many :deliveries
 
-  validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validates :order_date, presence: true
-  validates :order_status, presence: true
-  validates :total, presence: true, numericality: { greater_than: 0 }
+  validates :quantity, presence: { message: 'must be present and greater than 0' }, numericality: { only_integer: true, greater_than: 0, message: 'must be an integer greater than 0' }
+  validates :order_date, presence: { message: 'must be present' }
+  validates :order_status, presence: { message: 'must be present' }
+  validates :total, presence: { message: 'must be present and greater than 0' }, numericality: { greater_than: 0, message: 'must be greater than 0' }
 
-  # enum order_status: %i[pending delivering approve]
+  after_initialize :set_default_values
 
-  after_initialize do
+  private
+
+  def set_default_values
+    set_urgent_default
     set_permission_default
     set_order_status_default
   end
 
-  
-  after_initialize :set_urgent_default
-
-  private
-
   def set_urgent_default
-    update(permission: false) if client&.region == 'Yangon'
-    update(permission: true) if client&.region != 'Yangon'
+    update(urgent: client&.region == 'Yangon')
   end
 
   def set_permission_default
@@ -33,6 +31,6 @@ class Preorder < ApplicationRecord
   end
 
   def set_order_status_default
-    self.order_status ||= 'Pending'
+    update(order_status: 'Pending')
   end
 end

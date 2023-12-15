@@ -9,18 +9,28 @@ class Truck < ApplicationRecord
   validates :available, inclusion: { in: [true, false] }
   validates :current_capacity, presence: true, numericality: { only_integer: true }
 
-  after_initialize do
-    set_current_capacity
-  end  
+  after_initialize :set_default_values
+  before_save :update_available_status
 
-  def set_availabe_false
-    current_capacity < capacity*0.2 ? update(available: false) : update(available: true)
-    # self.available = false if current_capacity < capacity*0.2
+  def update_available_status
+    self.available = current_capacity >= capacity * 0.2
   end
 
   private
 
+  def set_default_values
+    set_current_capacity
+  end
+
   def set_current_capacity
-    self.current_capacity ||= capacity
+    update(current_capacity: capacity) if current_capacity.nil?
+  end
+
+  def check_and_update_preorders
+    return unless saved_change_to_available? && !available?
+
+    deliveries.each do |delivery|
+      delivery.preorder.update(permission: false)
+    end
   end
 end
