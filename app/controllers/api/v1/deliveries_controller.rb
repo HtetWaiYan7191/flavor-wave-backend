@@ -51,7 +51,21 @@ module Api
         @delivery = Delivery.new(delivery_params)
 
         if @delivery.save
-          render json: @delivery, status: :created
+          render json: @deliveries.as_json(
+            include: {
+              truck: {
+                only: [:license, :driver, :capacity]
+              },
+              preorder: {
+                only: [:preorder_id], 
+                include: {
+                  client: {
+                    only: [:name, :phone, :address] 
+                  }
+                }
+              }
+            }
+          ), status: :created
         else
           render json: @delivery.errors, status: :unprocessable_entity
         end
