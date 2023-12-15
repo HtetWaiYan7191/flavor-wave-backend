@@ -6,11 +6,20 @@ module Api
       before_action :set_delivery, only: %i[show update destroy]
 
       def index
-        @deliveries = if params[:search].present?
-                        Delivery.joins(:preorder).where('preorders.id = ?', params[:search])
-                      else
-                        Delivery.all
-                      end
+        if params[:search].present?
+          search_value = params[:search]
+      
+          if search_value.match?(/^\d+$/)
+            @deliveries = Delivery.joins(:preorder).where('preorders.id = ?', params[:search])
+          else
+            
+            @deliveries = Delivery.joins(:preorder).joins(preorder: :client)
+            .where("clients.name LIKE ?", "%#{client_name}%")
+            .select("deliveries.*, clients.name as client_name")
+          end
+        else
+          @deliveries = Delivery.all
+        end
 
         render json: @deliveries.as_json(
           include: {
