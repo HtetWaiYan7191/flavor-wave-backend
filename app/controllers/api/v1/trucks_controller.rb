@@ -7,7 +7,11 @@ module Api
 
       # GET /api/v1/trucks
       def index
-        @trucks = Truck.all
+        if params[:search].present?
+          @trucks = Truck.where(available: true).where('trucks.license ILIKE ?', "%#{params[:search]}%")
+        else
+          @trucks = Truck.all
+        end
 
         render json: @trucks
       end

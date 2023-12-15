@@ -4,7 +4,7 @@ module Api
   module V1
     class StocksController < ApplicationController
       # GET /api/v1/stocks
-      def index       
+      def index        
         if params[:search].present?
           @stocks = Stock.where('stocks.name ILIKE ?', "%#{params[:search]}%")
         else

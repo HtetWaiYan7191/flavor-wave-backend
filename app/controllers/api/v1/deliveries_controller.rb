@@ -6,12 +6,45 @@ module Api
       before_action :set_delivery, only: %i[show update destroy]
 
       def index
-        @deliveries = Delivery.all
-        render json: @deliveries.as_json(include: { truck: { only: [:license, :driver, :capacity] } })
+        @deliveries = if params[:search].present?
+                        Delivery.joins(:preorder).where('preorders.id = ?', params[:search])
+                      else
+                        Delivery.all
+                      end
+
+        render json: @deliveries.as_json(
+          include: {
+            truck: {
+              only: [:license, :driver, :capacity]
+            },
+            preorder: {
+              only: [:preorder_id], 
+              include: {
+                client: {
+                  only: [:name, :phone, :address] 
+                }
+              }
+            }
+          }
+        )
       end
 
     def show
-        render json: @delivery
+        render json: @delivery.as_json(
+          include: {
+            truck: {
+              only: [:license, :driver, :capacity]
+            },
+            preorder: {
+              only: [:preorder_id], 
+              include: {
+                client: {
+                  only: [:name, :phone, :address] 
+                }
+              }
+            }
+          }
+        )
       end
 
       def create
@@ -48,3 +81,5 @@ module Api
     end
   end
 end
+
+

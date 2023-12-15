@@ -7,16 +7,26 @@ module Api
       before_action :set_preorder, only: %i[show update destroy]
 
       def index
-        @preorders = if params[:search].present?
-                       # @client = Client.find_by(name: params[:search])
-                       # @preorders = @client.preorders if @client
-                       Preorder.joins(:client).where('clients.name ILIKE ?', "%#{params[:search]}%")
-                     else
-                       Preorder.all
-                     end
-                     render json: @preorders.as_json(include: { client: { only: :name } })
-
+        if params[:search].present?
+          search_value = params[:search]
+      
+          if search_value.match?(/^\d+$/)
+            int = search_value.to_i
+            @preorders = Preorder.find_by(id: int)
+          else
+            @preorders = Preorder.joins(:client).where('clients.name ILIKE ?', "%#{search_value}%")
+          end
+        else
+          @preorders = Preorder.all
+        end
+      
+        if @preorders.present?
+          render json: @preorders.as_json(include: { client: { only: [:name, :region, :address] } })
+        else
+          render json: { message: 'No matching preorders found' }, status: :not_found
+        end
       end
+      
 
       def filter_by_order_status
         @preorders = Preorder.where(order_status: params[:order_status])
@@ -33,12 +43,19 @@ module Api
       end
 
       def create
-        @preorder = Preorder.new(preorder_params)
-
-        if @preorder.save
-          render json: @preorder, status: :created
-        else
-          render json: @preorder.errors, status: :unprocessable_entity
+        ActiveRecord::Base.transaction do
+          # Fetch the client_id from the preorder hash
+          client_id = params.dig(:preorder, :client_id)
+          client = Client.find(client_id) if client_id
+      
+          @preorder = Preorder.new(preorder_params.merge(region: client&.region))
+      
+          if @preorder.save
+            create_preorder_items
+            render json: @preorder, status: :created
+          else
+            render json: @preorder.errors, status: :unprocessable_entity
+          end
         end
       end
 
@@ -64,6 +81,19 @@ module Api
         params.require(:preorder).permit(:client_id, :quantity, :region, :township, :order_date, :order_status, :total,:urgent, :permission,
                                          :user_id)
       end
+
+      def create_preorder_items
+        return unless params[:preorder_items].is_a?(Array)
+      
+        params[:preorder_items].each do |item_data|
+          @preorder.preorder_items.create(preorder_item_params(item_data))
+        end
+      end
+      
+      def preorder_item_params(item_data)
+        item_data.permit(:stock_id, :quantity)
+      end
     end
   end
 end
+
