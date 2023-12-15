@@ -12,10 +12,9 @@ module Api
           if search_value.match?(/^\d+$/)
             @deliveries = Delivery.joins(:preorder).where('preorders.id = ?', params[:search])
           else
-            
             @deliveries = Delivery.joins(:preorder).joins(preorder: :client)
-            .where("clients.name LIKE ?", "%#{client_name}%")
-            .select("deliveries.*, clients.name as client_name")
+            .where("clients.name LIKE ?", "%#{search_value}%")
+            .select("deliveries.*, clients.name as name")
           end
         else
           @deliveries = Delivery.all
