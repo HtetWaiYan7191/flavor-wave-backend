@@ -4,7 +4,7 @@ class Api::V1::PreorderItemsController < ApplicationController
   def index
     @preorder_items = PreorderItem.includes(:preorder).where(preorder_id: params[:preorder_id])
 
-    render json: @preorder_items
+    render json: @preorder_items.as_json(include: { stock: { only: [:name, :unit_price] } })
   end
 
   def all

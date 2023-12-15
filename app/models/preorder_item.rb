@@ -30,7 +30,7 @@ class PreorderItem < ApplicationRecord
 
   def reduce_stock
     stock = Stock.find(stock_id)
-    stock_details = StockDetail.where(stock_id: stock_id).order(expiry_date: :desc)
+    stock_details = StockDetail.where(stock_id: stock_id).sort_by { |detail| Date.parse(detail.expiry_date) }
     current_preorder_item = stock.preorder_items.find_by(preorder_id: preorder_id)
   
     if stock.quantity >= current_preorder_item.quantity
