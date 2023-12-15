@@ -10,19 +10,15 @@ class Truck < ApplicationRecord
   validates :current_capacity, presence: true, numericality: { only_integer: true }
 
   after_initialize do
-    set_available_default
     set_current_capacity
   end  
 
   def set_availabe_false
-    self.available = false if current_capacity < capacity*0.2
+    current_capacity < capacity*0.2 ? update(available: false) : update(available: true)
+    # self.available = false if current_capacity < capacity*0.2
   end
 
   private
-
-  def set_available_default
-    self.available ||= true
-  end
 
   def set_current_capacity
     self.current_capacity ||= capacity
