@@ -19,7 +19,7 @@ class Preorder < ApplicationRecord
   def set_default_values
     set_urgent_default
     set_permission_default
-    set_order_status_default
+    set_order_status_default unless order_status.present?
   end
 
   def set_urgent_default
@@ -31,6 +31,6 @@ class Preorder < ApplicationRecord
   end
 
   def set_order_status_default
-    update(order_status: 'Pending')
+    self.order_status ||= 'Pending'
   end
 end
