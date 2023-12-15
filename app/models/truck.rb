@@ -11,12 +11,13 @@ class Truck < ApplicationRecord
 
   after_initialize :set_default_values
   before_save :update_available_status
+  before_save :check_and_update_preorders, if: -> { saved_change_to_available? && !available? }
+
+  private
 
   def update_available_status
     self.available = current_capacity >= capacity * 0.2
   end
-
-  private
 
   def set_default_values
     set_current_capacity
@@ -27,10 +28,13 @@ class Truck < ApplicationRecord
   end
 
   def check_and_update_preorders
-    return unless saved_change_to_available? && !available?
-
+    Rails.logger.info('Executing check_and_update_preorders')
     deliveries.each do |delivery|
-      delivery.preorder.update(permission: false)
+      if delivery.preorder.update(order_status: 'Processing')
+        Rails.logger.info("Order status updated for Preorder #{delivery.preorder.id}")
+      else
+        Rails.logger.error("Failed to update order status for Preorder #{delivery.preorder.id}")
+      end
     end
   end
 end

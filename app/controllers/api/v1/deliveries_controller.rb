@@ -13,7 +13,7 @@ module Api
             @deliveries = Delivery.joins(:preorder).where('preorders.id = ?', params[:search])
           else
             @deliveries = Delivery.joins(:preorder).joins(preorder: :client)
-            .where("clients.name LIKE ?", "%#{search_value}%")
+            .where("clients.name ILIKE ?", "%#{search_value}%")
             .select("deliveries.*, clients.name as name")
           end
         else
