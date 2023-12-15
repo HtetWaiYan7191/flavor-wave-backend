@@ -1,3 +1,13 @@
+RestockDetail.destroy_all
+StockDetail.destroy_all
+Delivery.destroy_all
+PreorderItem.destroy_all
+Preorder.destroy_all
+Client.destroy_all
+Stock.destroy_all
+Truck.destroy_all
+Restock.destroy_all
+
 sale_manager = User.create(name: 'salesman', email: 'salesman@gmail.com', password: 'password', password_confirmation: 'password')
 logistic_manager = User.create(name: 'logistic', email: 'logistic@gmail.com', password: 'password', password_confirmation: 'password', department: 'logistic')
 
