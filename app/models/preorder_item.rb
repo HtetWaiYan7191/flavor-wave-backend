@@ -6,8 +6,9 @@ class PreorderItem < ApplicationRecord
 
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validate :unique_preorder_item_except_same_stock_different_id
+  validate :check_stock_quantity
 
-  # after_create :reduce_stock
+  after_create :reduce_stock, if: -> { stock.quantity >= preorder.quantity }
 
   private
 
@@ -19,10 +20,39 @@ class PreorderItem < ApplicationRecord
     end
   end
 
-  # def reduce_stock
-  #     stock = Stock.find(self.stock_id)
-  #     stock.quantity -= item.quantity
-  #     stock.save
-  # end
+  def check_stock_quantity
+    current_preorder_item = PreorderItem.find_by(stock_id: stock_id, preorder_id: preorder_id)
+  
+    if current_preorder_item && stock.quantity < current_preorder_item.quantity
+      errors.add(:base, "Stock quantity is insufficient for this Preorder")
+    end
+  end
+
+  def reduce_stock
+    stock = Stock.find(stock_id)
+    stock_details = StockDetail.where(stock_id: stock_id).sort_by { |detail| Date.parse(detail.expiry_date) }
+    current_preorder_item = stock.preorder_items.find_by(preorder_id: preorder_id)
+  
+    if stock.quantity >= current_preorder_item.quantity
+      stock.quantity -= current_preorder_item.quantity
+      stock.save
+      loop_and_delete(stock_details, current_preorder_item.quantity)
+    else
+      errors.add(:base, "Stock quantity is insufficient for this PreorderItem")
+    end
+  end
+
+  def loop_and_delete(details, remain)
+    details.each do |detail|
+      if remain >= detail.quantity
+        remain -= detail.quantity
+        detail.destroy
+      else
+        detail.quantity -= remain
+        detail.save
+        break
+      end
+    end
+  end
 
 end

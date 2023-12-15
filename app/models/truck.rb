@@ -12,6 +12,10 @@ class Truck < ApplicationRecord
   after_initialize do
     set_available_default
     set_current_capacity
+  end  
+
+  def set_availabe_false
+    self.available = false if current_capacity < capacity*0.2
   end
 
   private
